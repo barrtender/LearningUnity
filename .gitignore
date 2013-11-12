@@ -8,7 +8,7 @@
 *.sln
 
 # These are suggested by http://t-machine.org/index.php/2012/07/03/unity-git-source-control-a-basic-gitignore/ to ignore
-*.userprefs 
+*.userprefs
 *.pidb
 *.user
 *.DS_store
