@@ -18,15 +18,17 @@ public class CarDriver : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		KeepStraight();
+		
 		if(Input.GetKey(KeyCode.Escape)){
 			Application.Quit();
 		}
 		
-		debugOutput.text = "x: " + transform.position.x;
-		
-		if(transform.position.y < lowestGroundObject.position.y) {
-			Respawn();
+		if(transform.position.y < 0 ){//lowestGroundObject.position.y) {
+			//Respawn();
+			transform.position.Set(transform.position.x, 0, transform.position.z);
 		}
+		debugOutput.text = "point: x=" + transform.position.x + ", y=" + transform.position.y + ", z=" + transform.position.z;
 		
 		if(Input.GetKey(KeyCode.W)) {
 			transform.position += transform.forward * forwardSpeed * Time.deltaTime;
@@ -48,11 +50,17 @@ public class CarDriver : MonoBehaviour {
 		}
 	}
 	
+	public void KeepStraight() {
+		transform.position.Set(transform.position.x, 0, transform.position.z);
+		transform.rotation.Set(0,transform.rotation.y, 0, 0);// = respawnPosition.rotation;
+		rigidbody.angularVelocity = Vector3.zero;
+	}
+	
 	public void Respawn() {
-			transform.position = respawnPosition.position;
-			transform.rotation = respawnPosition.rotation;
-			rigidbody.velocity = Vector3.zero;
-			rigidbody.angularVelocity = Vector3.zero;
+		transform.position = respawnPosition.position;
+		rigidbody.velocity = Vector3.zero;
+		transform.rotation = respawnPosition.rotation;
+		rigidbody.angularVelocity = Vector3.zero;
 	}
 	/*void FixedUpdate() {
 		if(Input.GetKey(KeyCode.W)) {
